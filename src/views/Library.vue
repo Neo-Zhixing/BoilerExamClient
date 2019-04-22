@@ -19,7 +19,9 @@
           <td>
             <span v-for="tag in question.Tags" class="badge mx-1" :class="filters.tags.some(a => a.Id === tag.Id) ? 'badge-primary' : 'badge-secondary'" v-text="tag.Title" />
           </td>
-            <td><p v-text="question.Content" /></td>
+            <td>
+              <Latex :value="question.Content" inline markdown />
+            </td>
             <td>
               <router-link :to="{name: 'question', params: {'questionID': question.Id}}" class="btn">
                 <i class="fas fa-eye"></i>
@@ -56,8 +58,9 @@
 
 <script>
 import axios from '@/utils/client'
-import TagSelection from '../components/TagSelection'
 import QuestionPreview from '../components/QuestionPreview'
+import TagSelection from '../components/TagSelection'
+import Latex from '../components/Latex'
 import { mapState } from 'vuex'
 export default {
   name: 'Library',
@@ -75,6 +78,7 @@ export default {
   components: {
     TagSelection,
     QuestionPreview,
+    Latex,
   },
   mounted () {
     const page = this.$route.query.page || 1
