@@ -44,7 +44,15 @@
                         label="Options:">
             <b-list-group v-if="form.Options && form.Options.length > 0">
               <b-list-group-item v-for="(option, index) in form.Options" :key="index">
-                <b-input-group :prepend="String.fromCharCode(65 + index)" >
+                <b-input-group>
+                  <b-input-group-text slot="prepend" v-text="String.fromCharCode(65 + index)" v-if="form.Combinations"/>
+                  <b-input-group-prepend v-else>
+                    <b-button
+                      :variant="form.Answer === index ? 'info' : 'outline-info'"
+                      v-text="String.fromCharCode(65 + index)"
+                      @click="form.Answer = index"
+                      style="width: 3rem;"/>
+                  </b-input-group-prepend>
                   <b-form-input type="text"
                                 v-if="typeof option === 'string'"
                                 :disabled="freezed"
