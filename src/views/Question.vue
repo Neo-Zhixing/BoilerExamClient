@@ -140,7 +140,6 @@
 <script>
 import TagSelection from '@/components/TagSelection'
 import QuestionPreview from '@/components/QuestionPreview'
-import { Status } from '../models/question'
 import client from '@/utils/client'
 import { IndexToLetter } from '@/utils'
 export default {

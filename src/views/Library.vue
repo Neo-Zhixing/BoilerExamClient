@@ -17,7 +17,12 @@
         <tr v-for="question in questions" :key="question.Id">
           <td><button class="btn" @click="currentPreview = question"><i class="fas fa-ellipsis-v"></i></button></td>
           <td>
-            <span v-for="tag in question.Tags" class="badge mx-1" :class="filters.tags.some(a => a.Id === tag.Id) ? 'badge-primary' : 'badge-secondary'" v-text="tag.Title" />
+            <span
+              v-for="tag in question.Tags"
+              :key="tag.Id"
+              class="badge mx-1"
+              :class="filters.tags.some(a => a.Id === tag.Id) ? 'badge-primary' : 'badge-secondary'"
+              v-text="tag.Title" />
           </td>
             <td>
               <Latex :value="question.Content" inline markdown />
