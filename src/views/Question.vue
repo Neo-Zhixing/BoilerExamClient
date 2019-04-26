@@ -132,6 +132,16 @@
           This question was cloned from <router-link v-text="form.Parent.Id" :to="{name: 'question', params: {questionID: form.ParentId}}"/>:
           <question-preview :value="form.Parent" />
         </div>
+        <b-card no-body header="Variants" v-if="form && form.Children">
+          <b-list-group flush>
+            <b-list-group-item
+              v-for="child in form.Children"
+              :key="child.Id"
+              :to="{name: 'question', params: {questionID: child.Id}}">
+              {{child.Content}}
+            </b-list-group-item>
+          </b-list-group>
+        </b-card>
       </b-col>
     </b-row>
   </b-container>
@@ -148,13 +158,6 @@ export default {
     form: null,
     selectedFile: null,
   }),
-  mounted () {
-    client.get('/questions/' + this.questionID)
-      .then(response => {
-        this.form = response.data
-        console.log(this.form)
-      })
-  },
   methods: {
     onSave () {
       const data = Object.assign({}, this.form)
@@ -247,6 +250,16 @@ export default {
   watch: {
     'form.answer' (value) {
       console.log(value)
+    },
+    '$route.params.questionID': {
+      handler (questionID) {
+        client.get('/questions/' + this.questionID)
+          .then(response => {
+            this.form = response.data
+            console.log(this.form)
+          })
+      },
+      immediate: true
     }
   },
   components: {
