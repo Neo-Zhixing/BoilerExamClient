@@ -212,8 +212,7 @@ export default {
         })
     },
     fileDrag (event, file) {
-      const url = process.env.BASE_URL + 'api/files/' + file.Id
-      event.dataTransfer.setData('text', `![${file.FileName}](${url})`)
+      event.dataTransfer.setData('text', `![${file.FileName}](id:${file.Id})`)
     }
   },
   computed: {

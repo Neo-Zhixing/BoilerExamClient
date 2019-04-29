@@ -63,6 +63,7 @@ export default {
     render () {
       let previewErrors = []
       const preview = this.value
+        .replace(/!\[(.*)]\(id:(\d+)\)/g, `![$1](${process.env.BASE_URL}api/files/$2)`)
         .replace( // inline block mode
           /\${3}([^$]+)\${3}/g,
           (match, content) => renderLatex(content, this.inline ? 0 : 2, previewErrors)
